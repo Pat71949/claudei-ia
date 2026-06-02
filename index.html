@@ -223,33 +223,43 @@
   <h2 class="section-title">Essayez Claudei IA<br>gratuitement.</h2>
   <p class="section-sub" style="margin:0 auto;">Remplissez le formulaire — notre équipe vous contacte sous 24h pour configurer votre démo personnalisée.</p>
   <div class="contact-box">
-    <div class="form-group">
-      <label>Votre prénom</label>
-      <input type="text" placeholder="Jean-Pierre" />
-    </div>
-    <div class="form-group">
-      <label>Nom du restaurant</label>
-      <input type="text" placeholder="Le Petit Bistro" />
-    </div>
-    <div class="form-group">
-      <label>Téléphone</label>
-      <input type="tel" placeholder="+33 6 00 00 00 00" />
-    </div>
-    <div class="form-group">
-      <label>Type d'établissement</label>
-      <select>
-        <option>Restaurant traditionnel</option>
-        <option>Brasserie</option>
-        <option>Restaurant gastronomique</option>
-        <option>Fast-casual</option>
-        <option>Autre</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Un mot sur votre besoin (optionnel)</label>
-      <textarea placeholder="Ex: Nous recevons beaucoup d'appels le week-end et nous en ratons une bonne partie..."></textarea>
-    </div>
-    <button class="form-submit">✦ Je veux ma démo gratuite</button>
+    <form id="demo-form" action="https://formspree.io/f/xeogpqbk" method="POST">
+      <input type="hidden" name="_subject" value="Nouvelle demande de démo Claudei IA" />
+      <input type="hidden" name="_next" value="" />
+      <div class="form-group">
+        <label>Votre prénom</label>
+        <input type="text" name="prenom" placeholder="Jean-Pierre" required />
+      </div>
+      <div class="form-group">
+        <label>Nom du restaurant</label>
+        <input type="text" name="restaurant" placeholder="Le Petit Bistro" required />
+      </div>
+      <div class="form-group">
+        <label>Téléphone</label>
+        <input type="tel" name="telephone" placeholder="+33 6 00 00 00 00" required />
+      </div>
+      <div class="form-group">
+        <label>Type d'établissement</label>
+        <select name="type_etablissement">
+          <option>Restaurant traditionnel</option>
+          <option>Brasserie</option>
+          <option>Restaurant gastronomique</option>
+          <option>Fast-casual</option>
+          <option>Autre</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Un mot sur votre besoin (optionnel)</label>
+        <textarea name="message" placeholder="Ex: Nous recevons beaucoup d'appels le week-end et nous en ratons une bonne partie..."></textarea>
+      </div>
+      <button type="submit" class="form-submit" id="submit-btn">✦ Je veux ma démo gratuite</button>
+      <div id="form-success" style="display:none;margin-top:1.5rem;padding:1rem 1.5rem;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.4);border-radius:12px;color:#a5b4fc;text-align:center;">
+        ✅ Merci ! Vous serez contacté sous 24h.
+      </div>
+      <div id="form-error" style="display:none;margin-top:1.5rem;padding:1rem 1.5rem;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.4);border-radius:12px;color:#fca5a5;text-align:center;">
+        ❌ Une erreur est survenue. Réessayez ou contactez-nous directement.
+      </div>
+    </form>
   </div>
 </section>
 
@@ -266,5 +276,35 @@
 </footer>
 
 <script src="script.js"></script>
+<script>
+  document.getElementById('demo-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    const success = document.getElementById('form-success');
+    const error = document.getElementById('form-error');
+    btn.textContent = 'Envoi en cours...';
+    btn.disabled = true;
+    try {
+      const resp = await fetch(this.action, {
+        method: 'POST',
+        body: new FormData(this),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (resp.ok) {
+        success.style.display = 'block';
+        error.style.display = 'none';
+        this.reset();
+        btn.textContent = '✅ Demande envoyée';
+      } else {
+        throw new Error();
+      }
+    } catch {
+      error.style.display = 'block';
+      success.style.display = 'none';
+      btn.textContent = '✦ Je veux ma démo gratuite';
+      btn.disabled = false;
+    }
+  });
+</script>
 </body>
 </html>
