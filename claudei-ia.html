@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claudei IA — L'agent IA pour votre restaurant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --noir: #0a0a0a;
+      --blanc: #f5f2ec;
+      --or: #c9a84c;
+      --or-clair: #e8c97a;
+      --or-pale: #f5e9c8;
+      --gris: #1a1a1a;
+      --gris-moyen: #2e2e2e;
+      --texte-doux: #8a8070;
+      --radius: 16px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--noir);
+      color: var(--blanc);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--or);
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--blanc); }
+
+    nav ul {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    nav ul a {
+      color: var(--blanc);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+      opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+
+    nav ul a:hover { opacity: 1; color: var(--or); }
+
+    .nav-cta {
+      background: var(--or);
+      color: var(--noir) !important;
+      padding: 10px 24px;
+      border-radius: 100px;
+      font-weight: 500 !important;
+      opacity: 1 !important;
+      font-size: 14px;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--or-clair) !important; }
+
+    /* ─── HERO ─── */
+    #accueil {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 140px 40px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.13) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 20% 80%, rgba(201,168,76,0.06) 0%, transparent 50%);
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 70%);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--or);
+      font-size: 13px;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      position: relative;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .badge-dot {
+      width: 6px; height: 6px;
+      background: var(--or);
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(48px, 7vw, 96px);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -2px;
+      margin-bottom: 28px;
+      position: relative;
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+
+    h1 .accent { color: var(--or); }
+
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--texte-doux);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 44px;
+      position: relative;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .btn-primary {
+      background: var(--or);
+      color: var(--noir);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 100px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary:hover {
+      background: var(--or-clair);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(201,168,76,0.35);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--blanc);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      padding: 14px 32px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 100px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--or);
+      color: var(--or);
+      transform: translateY(-2px);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 80px;
+      position: relative;
+      animation: fadeUp 0.8s 0.4s ease both;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--or);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--texte-doux);
+      margin-top: 6px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── SECTIONS ─── */
+    section {
+      padding: 100px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--or);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+    }
+
+    .section-sub {
+      font-size: 17px;
+      color: var(--texte-doux);
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    /* ─── SEPARATOR ─── */
+    .sep {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,168,76,0.2), transparent);
+      margin: 0 60px;
+    }
+
+    /* ─── POURQUOI ─── */
+    #pourquoi {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .feature-card {
+      background: var(--gris);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: all 0.3s;
+      cursor: default;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(201,168,76,0.3);
+      background: rgba(201,168,76,0.05);
+      transform: translateY(-3px);
+    }
+
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .feature-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .feature-text {
+      font-size: 13px;
+      color: var(--texte-doux);
+      line-height: 1.6;
+    }
+
+    /* ─── COMMENT ─── */
+    #comment {
+      text-align: center;
+    }
+
+    #comment .section-sub {
+      margin: 0 auto 60px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+      position: relative;
+    }
+
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: calc(12.5% + 20px);
+      right: calc(12.5% + 20px);
+      height: 1px;
+      background: linear-gradient(to right, var(--or), rgba(201,168,76,0.2));
+    }
+
+    .step {
+      position: relative;
+      text-align: left;
+    }
+
+    .step-num {
+      width: 48px; height: 48px;
+      background: var(--gris-moyen);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--or);
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .step-text {
+      font-size: 13px;
+      color: var(--texte-doux);
+      line-height: 1.6;
+    }
+
+    /* ─── TARIFS ─── */
+    #tarifs {
+      text-align: center;
+    }
+
+    #tarifs .section-sub { margin: 0 auto 60px; }
+
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+    }
+
+    .plan {
+      background: var(--gris);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      padding: 36px 28px;
+      text-align: left;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .plan:hover {
+      transform: translateY(-4px);
+      border-color: rgba(201,168,76,0.2);
+    }
+
+    .plan.featured {
+      background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.04));
+      border-color: var(--or);
+    }
+
+    .plan-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--or);
+      color: var(--noir);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 100px;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .plan-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .plan-desc {
+      font-size: 13px;
+      color: var(--texte-doux);
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      font-family: 'Syne', sans-serif;
+      font-size: 44px;
+      font-weight: 800;
+      color: var(--or);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .plan-price span {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--texte-doux);
+    }
+
+    .plan-period {
+      font-size: 13px;
+      color: var(--texte-doux);
+      margin-bottom: 28px;
+    }
+
+    .plan-features {
+      list-style: none;
+      margin-bottom: 32px;
+    }
+
+    .plan-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .plan-features li::before {
+      content: '✓';
+      color: var(--or);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .plan-btn {
+      width: 100%;
+      padding: 13px;
+      border-radius: 100px;
+      border: 1px solid rgba(201,168,76,0.4);
+      background: transparent;
+      color: var(--or);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .plan-btn:hover, .plan.featured .plan-btn {
+      background: var(--or);
+      color: var(--noir);
+      border-color: var(--or);
+    }
+
+    /* ─── FAQ ─── */
+    #faq .faq-list {
+      margin-top: 48px;
+      max-width: 700px;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 24px 0;
+    }
+
+    .faq-q {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .faq-q .icon {
+      font-size: 20px;
+      color: var(--or);
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+
+    .faq-a {
+      font-size: 14px;
+      color: var(--texte-doux);
+      line-height: 1.7;
+      margin-top: 12px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .faq-item.open .faq-a { max-height: 200px; }
+    .faq-item.open .icon { transform: rotate(45deg); }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      text-align: center;
+    }
+
+    .contact-box {
+      max-width: 520px;
+      margin: 48px auto 0;
+      background: var(--gris);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 24px;
+      padding: 40px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 8px;
+      color: var(--texte-doux);
+    }
+
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      color: var(--blanc);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      border-color: var(--or);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-group select option { background: var(--gris); }
+
+    .form-submit {
+      width: 100%;
+      padding: 14px;
+      background: var(--or);
+      color: var(--noir);
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: 100px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: all 0.25s;
+    }
+
+    .form-submit:hover {
+      background: var(--or-clair);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(201,168,76,0.3);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 40px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--or);
+    }
+
+    .footer-logo span { color: var(--blanc); }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--texte-doux);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--or); }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--texte-doux);
+    }
+
+    /* ─── BAND ─── */
+    .band {
+      overflow: hidden;
+      padding: 20px 0;
+      background: rgba(201,168,76,0.05);
+      border-top: 1px solid rgba(201,168,76,0.1);
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+    }
+
+    .band-track {
+      display: flex;
+      gap: 60px;
+      animation: scroll 20s linear infinite;
+      width: max-content;
+    }
+
+    .band-item {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--texte-doux);
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .band-dot { color: var(--or); }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      nav ul { display: none; }
+      section { padding: 60px 24px; }
+      #pourquoi { grid-template-columns: 1fr; gap: 40px; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .steps::before { display: none; }
+      .plans { grid-template-columns: 1fr; }
+      footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+      .sep { margin: 0 24px; }
+    }
+
+    @media (max-width: 600px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .hero-stats { gap: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#accueil" class="logo">Claudei<span> IA</span></a>
+  <ul>
+    <li><a href="#pourquoi">Fonctionnalités</a></li>
+    <li><a href="#comment">Comment ça marche</a></li>
+    <li><a href="#tarifs">Tarifs</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact" class="nav-cta">Démo gratuite</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="accueil">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="badge"><span class="badge-dot"></span> Agent IA disponible 24h/24 · 7j/7</div>
+  <h1>Votre restaurant<br>ne rate plus <span class="accent">aucune<br>réservation.</span></h1>
+  <p class="hero-sub">Claudei IA répond à vos appels, gère vos réservations et chouchoute vos clients — pendant que vous cuisinez.</p>
+  <div class="hero-btns">
+    <a href="#contact" class="btn-primary">✦ Demander une démo</a>
+    <a href="#comment" class="btn-secondary">Voir comment ça marche</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-number">100%</div>
+      <div class="stat-label">Appels répondus</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">24/7</div>
+      <div class="stat-label">Disponibilité totale</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">+35%</div>
+      <div class="stat-label">Réservations en plus</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">48h</div>
+      <div class="stat-label">Pour être opérationnel</div>
+    </div>
+  </div>
+</div>
+
+<!-- BAND -->
+<div class="band">
+  <div class="band-track">
+    <span class="band-item"><span class="band-dot">✦</span> Réservations automatisées</span>
+    <span class="band-item"><span class="band-dot">✦</span> Réponse instantanée</span>
+    <span class="band-item"><span class="band-dot">✦</span> Intégration facile</span>
+    <span class="band-item"><span class="band-dot">✦</span> Sans formation</span>
+    <span class="band-item"><span class="band-dot">✦</span> Voix naturelle</span>
+    <span class="band-item"><span class="band-dot">✦</span> Personnalisable</span>
+    <span class="band-item"><span class="band-dot">✦</span> Réservations automatisées</span>
+    <span class="band-item"><span class="band-dot">✦</span> Réponse instantanée</span>
+    <span class="band-item"><span class="band-dot">✦</span> Intégration facile</span>
+    <span class="band-item"><span class="band-dot">✦</span> Sans formation</span>
+    <span class="band-item"><span class="band-dot">✦</span> Voix naturelle</span>
+    <span class="band-item"><span class="band-dot">✦</span> Personnalisable</span>
+  </div>
+</div>
+
+<!-- POURQUOI -->
+<section id="pourquoi">
+  <div>
+    <div class="section-label">Pourquoi Claudei IA</div>
+    <h2 class="section-title">Tout ce dont votre restaurant a besoin.</h2>
+    <p class="section-sub">Un agent IA conçu spécifiquement pour les restaurants. Rapide à déployer, simple à utiliser, redoutablement efficace.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">📞</div>
+      <div class="feature-title">Zéro appel manqué</div>
+      <div class="feature-text">Chaque appel est décroché en moins de 2 secondes, même en plein service du midi.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📅</div>
+      <div class="feature-title">Réservations auto</div>
+      <div class="feature-text">Prise, modification et annulation de réservations gérées entièrement par l'IA.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌙</div>
+      <div class="feature-title">Service 24h/24</div>
+      <div class="feature-text">Vos clients réservent même à 23h ou un dimanche matin sans déranger personne.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎙️</div>
+      <div class="feature-title">Voix naturelle</div>
+      <div class="feature-text">Une voix chaleureuse et professionnelle qui reflète l'image de votre établissement.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔗</div>
+      <div class="feature-title">Intégration clé en main</div>
+      <div class="feature-text">Compatible avec vos logiciels de caisse et d'agenda existants. Aucun changement requis.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <div class="feature-title">Tableau de bord</div>
+      <div class="feature-text">Suivez vos appels, réservations et statistiques en temps réel depuis votre téléphone.</div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- COMMENT -->
+<section id="comment">
+  <div class="section-label">Processus</div>
+  <h2 class="section-title">Opérationnel en 48h.</h2>
+  <p class="section-sub">Pas de techniciens, pas de formation, pas de prise de tête. On s'occupe de tout.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Remplissez le formulaire</div>
+      <div class="step-text">Vos horaires, votre menu, vos spécificités. 5 minutes suffisent.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">On crée votre agent</div>
+      <div class="step-text">Un agent 100% personnalisé à votre restaurant, votre ton, votre identité.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Intégration simple</div>
+      <div class="step-text">On connecte tout à votre système existant. Aucune migration nécessaire.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-title">Go live !</div>
+      <div class="step-text">Votre agent répond dès le premier appel. Vous gérez, nous automatisons.</div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- TARIFS -->
+<section id="tarifs">
+  <div class="section-label">Tarifs</div>
+  <h2 class="section-title">Simple et transparent.</h2>
+  <p class="section-sub">Un abonnement mensuel sans engagement. Annulez à tout moment.</p>
+  <div class="plans">
+    <div class="plan">
+      <div class="plan-name">Essentiel</div>
+      <div class="plan-desc">Pour démarrer sans risque</div>
+      <div class="plan-price">49<span>€</span></div>
+      <div class="plan-period">/ mois · sans engagement</div>
+      <ul class="plan-features">
+        <li>Jusqu'à 200 appels / mois</li>
+        <li>Prise de réservation automatique</li>
+        <li>Tableau de bord basique</li>
+        <li>Support par email</li>
+      </ul>
+      <button class="plan-btn">Commencer</button>
+    </div>
+    <div class="plan featured">
+      <div class="plan-badge">⭐ Le plus populaire</div>
+      <div class="plan-name">Pro</div>
+      <div class="plan-desc">Pour les restaurants actifs</div>
+      <div class="plan-price">99<span>€</span></div>
+      <div class="plan-period">/ mois · sans engagement</div>
+      <ul class="plan-features">
+        <li>Appels illimités</li>
+        <li>Prise, modification & annulation</li>
+        <li>Intégration logiciel de caisse</li>
+        <li>Tableau de bord avancé</li>
+        <li>Voix personnalisée</li>
+        <li>Support prioritaire</li>
+      </ul>
+      <button class="plan-btn">Commencer</button>
+    </div>
+    <div class="plan">
+      <div class="plan-name">Prestige</div>
+      <div class="plan-desc">Pour les grandes tables</div>
+      <div class="plan-price">199<span>€</span></div>
+      <div class="plan-period">/ mois · sans engagement</div>
+      <ul class="plan-features">
+        <li>Tout le plan Pro</li>
+        <li>Multi-établissements</li>
+        <li>Agent multilingue (FR/EN/ES)</li>
+        <li>Rapports hebdomadaires</li>
+        <li>Account manager dédié</li>
+      </ul>
+      <button class="plan-btn">Nous contacter</button>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- FAQ -->
+<section id="faq" style="max-width:900px;">
+  <div class="section-label">FAQ</div>
+  <h2 class="section-title">Questions fréquentes.</h2>
+  <div class="faq-list">
+    <div class="faq-item open">
+      <div class="faq-q" onclick="toggle(this)">
+        Est-ce que mes clients vont savoir qu'ils parlent à une IA ?
+        <span class="icon">+</span>
+      </div>
+      <div class="faq-a">Non, sauf si vous le souhaitez. Claudei IA utilise une voix naturelle et chaleureuse. La plupart des clients ne font pas la différence avec une vraie secrétaire téléphonique.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        Combien de temps pour être opérationnel ?
+        <span class="icon">+</span>
+      </div>
+      <div class="faq-a">En général 48h après avoir rempli le formulaire. Notre équipe crée et configure votre agent IA, puis procède à l'intégration avec votre système existant.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        Que se passe-t-il si l'agent ne comprend pas ?
+        <span class="icon">+</span>
+      </div>
+      <div class="faq-a">En cas de demande complexe ou non reconnue, l'agent redirige l'appel vers vous ou prend un message selon vos préférences. Aucun appel n'est jamais perdu.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        Mon logiciel de réservation est-il compatible ?
+        <span class="icon">+</span>
+      </div>
+      <div class="faq-a">Claudei IA est compatible avec les principaux logiciels de restauration du marché (TheFork, Zenchef, Lightspeed, Ubereats Manager, etc.). Contactez-nous pour vérifier la compatibilité avec votre outil.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        Puis-je annuler mon abonnement à tout moment ?
+        <span class="icon">+</span>
+      </div>
+      <div class="faq-a">Oui, sans frais ni pénalité. Tous nos abonnements sont sans engagement. Vous pouvez annuler à tout moment depuis votre tableau de bord.</div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Démo gratuite</div>
+  <h2 class="section-title">Essayez Claudei IA<br>gratuitement.</h2>
+  <p class="section-sub" style="margin:0 auto;">Remplissez le formulaire — notre équipe vous contacte sous 24h pour configurer votre démo personnalisée.</p>
+  <div class="contact-box">
+    <div class="form-group">
+      <label>Votre prénom</label>
+      <input type="text" placeholder="Jean-Pierre" />
+    </div>
+    <div class="form-group">
+      <label>Nom du restaurant</label>
+      <input type="text" placeholder="Le Petit Bistro" />
+    </div>
+    <div class="form-group">
+      <label>Téléphone</label>
+      <input type="tel" placeholder="+33 6 00 00 00 00" />
+    </div>
+    <div class="form-group">
+      <label>Type d'établissement</label>
+      <select>
+        <option>Restaurant traditionnel</option>
+        <option>Brasserie</option>
+        <option>Restaurant gastronomique</option>
+        <option>Fast-casual</option>
+        <option>Autre</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Un mot sur votre besoin (optionnel)</label>
+      <textarea placeholder="Ex: Nous recevons beaucoup d'appels le week-end et nous en ratons une bonne partie..."></textarea>
+    </div>
+    <button class="form-submit">✦ Je veux ma démo gratuite</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Claudei<span> IA</span></div>
+  <ul class="footer-links">
+    <li><a href="#pourquoi">Fonctionnalités</a></li>
+    <li><a href="#tarifs">Tarifs</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Claudei IA — Tous droits réservés</div>
+</footer>
+
+<script>
+  function toggle(el) {
+    const item = el.parentElement;
+    item.classList.toggle('open');
+  }
+
+  // Smooth scroll nav
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.feature-card, .step, .plan, .faq-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
