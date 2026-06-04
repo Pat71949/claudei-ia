@@ -286,18 +286,19 @@
     btn.textContent = 'Envoi en cours...';
     btn.disabled = true;
     try {
-      const resp = await fetch(this.action, {
+      const resp = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        body: new FormData(this),
-        headers: { 'Accept': 'application/json' }
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(this)
       });
-      if (resp.ok) {
+      const data = await resp.json();
+      if (data.success) {
         success.style.display = 'block';
         error.style.display = 'none';
         this.reset();
         btn.textContent = '✅ Demande envoyée';
       } else {
-        throw new Error();
+        throw new Error(data.message);
       }
     } catch {
       error.style.display = 'block';
