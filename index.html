@@ -27,7 +27,7 @@
   <div class="hero-grid"></div>
   <div class="badge"><span class="badge-dot"></span> Agent IA disponible 24h/24 · 7j/7</div>
   <h1>Votre restaurant<br>ne rate plus <span class="accent">aucune<br>réservation.</span></h1>
-  <p class="hero-sub">Claudei IA répond à vos appels, gère vos réservations et chouchoute vos clients — pendant que vous cuisinez.</p>
+  <p class="hero-sub">RestoAgent répond à vos appels, gère vos réservations et chouchoute vos clients — pendant que vous cuisinez.</p>
   <div class="hero-btns">
     <a href="#contact" class="btn-primary">✦ Demander une démo</a>
     <a href="#comment" class="btn-secondary">Voir comment ça marche</a>
@@ -73,7 +73,7 @@
 <!-- POURQUOI -->
 <section id="pourquoi">
   <div>
-    <div class="section-label">Pourquoi Claudei IA</div>
+    <div class="section-label">Pourquoi RestoAgent</div>
     <h2 class="section-title">Tout ce dont votre restaurant a besoin.</h2>
     <p class="section-sub">Un agent IA conçu spécifiquement pour les restaurants. Rapide à déployer, simple à utiliser, redoutablement efficace.</p>
   </div>
@@ -182,7 +182,7 @@
         Est-ce que mes clients vont savoir qu'ils parlent à une IA ?
         <span class="icon">+</span>
       </div>
-      <div class="faq-a">Non, sauf si vous le souhaitez. Claudei IA utilise une voix naturelle et chaleureuse. La plupart des clients ne font pas la différence avec une vraie secrétaire téléphonique.</div>
+      <div class="faq-a">Non, sauf si vous le souhaitez. RestoAgent utilise une voix naturelle et chaleureuse. La plupart des clients ne font pas la différence avec une vraie secrétaire téléphonique.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggle(this)">
@@ -220,12 +220,13 @@
 <!-- CONTACT -->
 <section id="contact">
   <div class="section-label">Démo gratuite</div>
-  <h2 class="section-title">Essayez Claudei IA<br>gratuitement.</h2>
+  <h2 class="section-title">Essayez RestoAgent<br>gratuitement.</h2>
   <p class="section-sub" style="margin:0 auto;">Remplissez le formulaire — notre équipe vous contacte sous 24h pour configurer votre démo personnalisée.</p>
   <div class="contact-box">
-    <form id="demo-form" action="https://formspree.io/f/xeogpqbk" method="POST">
-      <input type="hidden" name="_subject" value="Nouvelle demande de démo Claudei IA" />
-      <input type="hidden" name="_next" value="" />
+    <form id="demo-form" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="REMPLACE_PAR_TA_CLE" />
+      <input type="hidden" name="subject" value="Nouvelle demande de démo RestoAgent" />
+      <input type="hidden" name="from_name" value="RestoAgent Site" />
       <div class="form-group">
         <label>Votre prénom</label>
         <input type="text" name="prenom" placeholder="Jean-Pierre" required />
@@ -272,7 +273,7 @@
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <div class="footer-copy">© 2026 Claudei IA — Tous droits réservés</div>
+  <div class="footer-copy">© 2026 RestoAgent — Tous droits réservés</div>
 </footer>
 
 <script src="script.js"></script>
